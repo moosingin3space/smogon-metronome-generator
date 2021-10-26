@@ -1,5 +1,5 @@
 import { AllPokemon } from "./pokedex.ts";
-import { AllAbilities } from "./ability.ts";
+import { AllAbilities, BannedAbilities } from "./ability.ts";
 import { AllItems } from "./heldItem.ts";
 
 export interface Species {
@@ -30,7 +30,12 @@ export function selectSpecies(): Species {
 }
 
 export function selectAbility(): Ability {
-    return AllAbilities[randomNum(0, AllAbilities.length)];
+    let abilitySelected = AllAbilities[randomNum(0, AllAbilities.length)];
+    while (BannedAbilities.indexOf(abilitySelected.name) > -1)
+    {
+        abilitySelected = AllAbilities[randomNum(0, AllAbilities.length)];
+    }
+    return abilitySelected;
 }
 
 export function selectHeldItem(): string {
